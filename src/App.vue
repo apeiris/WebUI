@@ -1,43 +1,44 @@
 <template>
-<v-app>
   <div id="app" class="container-fluid">
     <div v-if="is_logged">
-      <admin-layout/>
+      <admin-layout />
     </div>
-    <div v-else >
+    <div v-else>
       <login-screen />
     </div>
   </div>
-</v-app>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import LoginScreen from './components/LoginScreen'
-import AdminLayout from './components/AdminLayout'
+import LoginScreen from './components/LoginScreen';
+import AdminLayout from './components/AdminLayout';
+
 export default {
-  name: 'app',
+  name: 'App', // Case-sensitive to match convention
   components: {
     LoginScreen,
-    AdminLayout
+    AdminLayout,
   },
-  data: function() {
-    return { 
-      rememberme:false 
-    }
+  data() {
+    return {
+      rememberme: false,
+    };
   },
   computed: mapState({
-      is_logged: state =>  { console.log('is_logged',state); return (state.username !=null && state.password !=null && state.server !=null) }
-  }),  
-}
+    is_logged: (state) => {
+      console.log('is_logged', state);
+      return state.username != null && state.password != null && state.server != null;
+    },
+  }),
+};
 </script>
 
 <style>
 #app {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
   color: #2c3e50;
   margin-top: 60px;
 }
