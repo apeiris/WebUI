@@ -184,8 +184,10 @@ const Utils = {
     },
 
     async sendWebhook(eventType, resource, data) {
+     console.log("Webhook URL from store:", store.state.webhookUrl  );
       try {
         const webhookUrl = store.state.webhookUrl;
+		console.log("hook url=",store.state.webhookUrl);
         if (!webhookUrl) {
           console.warn("Webhook URL not configured in store.state.webhookUrl");
           return;
@@ -198,6 +200,7 @@ const Utils = {
           timestamp: new Date().toISOString()
         };
 
+        console.log("Sending webhook :url=", webhookUrl);
         console.log("Sending webhook:", payload);
 
         await axios.post(webhookUrl, payload, {

@@ -13,7 +13,12 @@ const store = new Vuex.Store({
         username: null,
         password: null,
         server: null,
-        webhookUrl: null   // <-- add webhook url here
+   webhookUrl: (() => {
+        const url = process.env.VUE_APP_WEBHOOK_URL;
+        if (!url) return null;
+        const cleanedUrl = url.replace(/\/$/, ''); // remove trailing slash
+        return cleanedUrl.endsWith('/webhook') ? cleanedUrl : cleanedUrl + '/webhook';
+    })()
     },
     actions: {
         loginAction(context, payload) {
@@ -44,6 +49,7 @@ const store = new Vuex.Store({
             return state;
         },
         setWebhookUrl(state, payload) {
+            console.log("Mutation @ setWebhookUrl called with payload:", payload);
             state.webhookUrl = payload;
             return state;
         }
